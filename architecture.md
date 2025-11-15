@@ -4,6 +4,27 @@
 
 Below is the high-level architecture diagram showing the flow between user commands, CLI entrypoint, workers, database and job lifecycle.
 
+
+                                +------------------+          +---------------------+
+                                |     queuectl     |          |      SQLite DB      |
+                                |   (CLI Input)    | ----->   |  jobs + config      |
+                                +------------------+          +---------------------+
+                                        ↓                            ↑
+                                enqueue command                     |
+                                        ↓                            |
+                                +------------------+          +---------------------+
+                                |   jobs (pending) | <------ | Worker Processes    |
+                                +------------------+          | (child processes)   |
+                                        ↓                    --------------------- 
+                                processing  → success → completed
+                                        ↓
+                                failure → retry (exponential backoff)
+                                        ↓
+                                dead (DLQ)
+
+
+
+
 QueueCTL uses:
 
 SQLite as persistent storage
