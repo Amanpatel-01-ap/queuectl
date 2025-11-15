@@ -74,15 +74,66 @@ queuectl status
 
 Jobs that keep failing go into DLQ.
 
-### List DLQ jobs
+Dead Letter Queue (DLQ)
 
+Jobs that continue to fail after passing the retry limit are moved to the DLQ (Dead Letter Queue).
+
+ List DLQ jobs
 queuectl dlq list
 
 
-### Retry a DLQ job
+Shows all dead jobs with an index number:
 
+[0] 91af...  command="exit 1"  attempts=3
+[1] a83d...  command="sleep 5" attempts=3
 
+🔁 Retrying DLQ Jobs
+
+QueueCTL supports 4 retry modes:
+
+1️ Retry by Job ID
 queuectl dlq retry <jobId>
+
+
+Example:
+
+queuectl dlq retry 91af-1234-...
+
+2️ Retry by Index
+
+Use the index shown in dlq list:
+
+queuectl dlq retry 0
+
+3️ Retry ALL DLQ jobs
+queuectl dlq retry all
+
+
+Moves every dead job back to pending.
+
+4️ Interactive Mode (no argument)
+queuectl dlq retry
+
+
+CLI will ask:
+
+[0] job1...
+[1] job2...
+
+Select job to retry:
+(number / all)
+
+Just type, for example:
+            0
+            or
+            all
+ Example Flow
+        queuectl dlq list
+        queuectl dlq retry
+# choose: 1
+Output:
+
+        Job <id> moved from DLQ → pending.
 
 
 ---

@@ -22,8 +22,13 @@ program
 // DLQ
 const dlq = program.command('dlq').description('Dead Letter Queue');
 
-dlq.command('list').description('List dead jobs').action(listDLQ);
-dlq.command('retry <jobId>').description('Retry a dead job').action(retryDLQ);
+dlq.command('list')
+  .description('List dead jobs')
+  .action(() => listDLQ());
+
+dlq.command('retry [identifier]')
+  .description('Retry a DLQ job (index, jobId, or "all")')
+  .action(retryDLQ);
 
 // CONFIG
 const config = program.command('config').description('Configuration settings');
