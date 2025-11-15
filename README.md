@@ -6,6 +6,12 @@ It supports job scheduling, multiple workers, retries with exponential backoff, 
 This project demonstrates how real-world queue systems (BullMQ, Celery, Sidekiq) work internally.
 
 ---
+## 🎥 CLI Demo Video
+
+Watch the working QueueCTL demo:
+
+🔗 **Demo Video**: https://drive.google.com/file/d/1Z5Zls1dE3sgmMSoaQ3NPxgNkl2wb9z70/view?usp=sharing
+
 
 # 🛠️ Setup Instructions
 
