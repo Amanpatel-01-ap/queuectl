@@ -4,8 +4,6 @@
 
 Below is the high-level architecture diagram showing the flow between user commands, CLI entrypoint, workers, database and job lifecycle.
 
-![QueueCTL Architecture](./docs/hld.png)
-
 QueueCTL uses:
 
 SQLite as persistent storage
@@ -17,7 +15,7 @@ Node’s exec() to execute actual shell commands
 
 Every job flows through well-defined states:
 Below is the diagram of job cycle flow
-Queuectl job cycle(./docs/)
+
 
 enqueue → pending
 pending → processing
@@ -107,8 +105,8 @@ queuectl config set backoff_base 3
 
 Workers always read latest config values — no restart required.
 
-Directory Structure (./docs/directory.png)
-incase doesn't load 
+Directory Structure 
+
 queuectl/
 │
 ├── bin/
