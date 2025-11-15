@@ -86,7 +86,7 @@ function retryDLQ(identifier) {
     });
   }
 
-  // Retry by actual jobId
+ 
   retryJobById(identifier);
 }
 

@@ -1,14 +1,12 @@
-// src/lib/workerManager.js
+
 const { fork } = require('child_process');
 const path = require('path');
-const { log } = require('./logger');   // ✅ use logger for system logs
+const { log } = require('./logger');   
 
-const children = new Map(); // key: workerId, value: { proc, shutdownTimer }
+const children = new Map(); 
 let shuttingDown = false;
 
-/**
- * Start one worker process.
- */
+
 function startWorker(workerId) {
   if (shuttingDown) {
     log(`⚠️  Not starting worker ${workerId}: manager is shutting down.`);
@@ -59,15 +57,13 @@ function startWorker(workerId) {
     console.error(`❌ Worker ${workerId} error:`, err);
   });
 
-  // Send start signal
+  
   child.send({ cmd: 'start', workerId });
 
   return child;
 }
 
-/**
- * Stop all workers gracefully.
- */
+
 function stopWorker() {
   if (shuttingDown) {
     log('ℹ️  Stop already in progress.');
@@ -97,7 +93,7 @@ function stopWorker() {
 
         proc.once('exit', cleanup);
 
-        // SIGTERM after 8 seconds
+       
         meta.shutdownTimer = setTimeout(() => {
           if (!proc.killed) {
             try {

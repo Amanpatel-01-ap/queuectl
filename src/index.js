@@ -13,14 +13,14 @@ program
   .description('CLI Job Queue Manager')
   .version('1.0.0');
 
-// ENQUEUE
 program
   .command('enqueue <jobJson>')
   .description('Add a new job to the queue')
   .action(enqueue);
 
-// DLQ
-const dlq = program.command('dlq').description('Dead Letter Queue');
+const dlq = program
+  .command('dlq')
+  .description('Dead Letter Queue');
 
 dlq.command('list')
   .description('List dead jobs')
@@ -30,25 +30,37 @@ dlq.command('retry [identifier]')
   .description('Retry a DLQ job (index, jobId, or "all")')
   .action(retryDLQ);
 
-// CONFIG
-const config = program.command('config').description('Configuration settings');
+const config = program
+  .command('config')
+  .description('Configuration settings');
 
-config.command('show').description('Show current configuration').action(configCmd.show);
-config.command('set <key> <value>').description('Update configuration value').action(configCmd.set);
+config
+  .command('show')
+  .description('Show current configuration')
+  .action(configCmd.show);
+config
+  .command('set <key> <value>')
+  .description('Update configuration value')
+  .action(configCmd.set);
 
-// WORKER
-const worker = program.command('worker').description('Manage workers');
+const worker = program
+  .command('worker')
+  .description('Manage workers');
 
 worker.command('start')
   .option('--count <number>', 'Number of workers', '1')
   .action(start);
 
-worker.command('stop').description('Stop workers').action(stop);
+worker
+  .command('stop')
+  .description('Stop workers')
+  .action(stop);
 
-// STATUS
-program.command('status').description('Show summary of job states').action(status);
+program
+  .command('status')
+  .description('Show summary of job states')
+  .action(status);
 
-// LIST
 program.command('list')
   .option('--state <state>', 'Filter jobs by state')
   .action(listJobs);

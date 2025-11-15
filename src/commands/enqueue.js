@@ -1,5 +1,5 @@
 const { addJob } = require('../lib/jobManager');
-const { log } = require('../lib/logger');   // ✅ import logger ONCE at top
+const { log } = require('../lib/logger');   
 
 async function enqueue(input) {
   try {
